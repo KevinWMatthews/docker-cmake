@@ -34,7 +34,36 @@ This works but compiles all source code as root, which can be problematic when l
 
 #### Permissions when Starting Container
 
-One solution is to specify the user when running the container using the `--user` option.
+For security reasons, Docker containers typically are not run as root.
+
+This image has a default user built in:
+```
+ARG userid=1000
+```
+
+This will run the container with userid 1000 and group 1000 by default.
+
+This can be overridden when the image is built and/or the container is run.
+
+To set the image's default user, use:
+```
+$ docker build --build-arg userid=<your_userid> <docker_directory>
+```
+
+To override the user id at runtime only, use:
+```
+$ docker run --user <uid:gid>
+```
+
+It can be convenient to use the option:
+```
+--user $(id --user):$(id --group)
+```
+
+
+
+### Example Run Command
+
 This will run the container as the current user:
 ```
 $ docker run \
@@ -47,13 +76,6 @@ $ docker run \
     bash
 ```
 
-#### Permissions when Building Image
-
-A second solution is to hard-code a user into a Dockerfile:
-```
-RUN #TODO useradd or adduser. Password? Home directory? Group?
-USER user
-```
 
 
 ### Shell Into Container
