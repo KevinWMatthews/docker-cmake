@@ -5,7 +5,7 @@ CMake installed to the official gcc Docker image.
 
 ## Tags and `Dockerfile` links
 
-Images are tagged with gcc version first and CMake version second, so `gcc8` with `CMake 3.13.1` gives `8-3.13.1`:
+Images are tagged with gcc version first and CMake version second, so `gcc8` with `CMake 3.13.1` is `8-3.13.1`:
 
   * [gcc-cmake:8-3.13.1](https://github.com/KevinWMatthews/gcc-cmake/blob/master/gcc8/3.13.1/Dockerfile)
   * [gcc-cmake:7-3.7.2](https://github.com/KevinWMatthews/gcc-cmake/blob/master/gcc7/3.7.2/Dockerfile)
@@ -20,7 +20,7 @@ Additionally, images are tagged with a date stamp `YYYYMMDD`:
 These images are built [from tags](https://github.com/KevinWMatthews/gcc-cmake/tags)
 in the source repo and are stable.
 
-A complete list of Docker tags is here.
+Here is a complete list of [Docker tags](https://hub.docker.com/r/kevinwmatthews/gcc-cmake/tags/).
 
 
 ### Build In Container
@@ -47,15 +47,15 @@ Leave `<command>` blank to shell into the container.
 ### Permissions
 
 When mounting code to the container, it is advisable to run the container
-with current system user ID. If the container is run as root, all changes
-to the source and build directories will be owned by root.
+with current system user ID. If the container is run as root, all files
+that the container touches in the source and build directories will be owned by root.
 
-This can be solved using the `--user` option. On Ubuntu Linux, use:
+This can be prevented with `docker run`'s `--user` option. On Ubuntu Linux, use:
 
 ```bash
 --user $(id --user):$(id --group)
 ```
-or a similar option.
+or something similar.
 
 
 ## Additional Resources
