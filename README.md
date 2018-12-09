@@ -5,7 +5,7 @@ CMake installed to the official gcc Docker image.
 
 ## Tags and `Dockerfile` links
 
-Images are tagged with gcc version first and CMake version second, so `gcc8` with `CMake 3.13.1` is `8-3.13.1`:
+Images are tagged with gcc version first and CMake version second, so `gcc8` with `CMake 3.13.1` is tagged with `8-3.13.1`:
 
   * [gcc-cmake:8-3.13.1](https://github.com/KevinWMatthews/gcc-cmake/blob/master/gcc8/3.13.1/Dockerfile)
   * [gcc-cmake:7-3.7.2](https://github.com/KevinWMatthews/gcc-cmake/blob/master/gcc7/3.7.2/Dockerfile)
@@ -17,15 +17,14 @@ Additionally, images are tagged with a date stamp `YYYYMMDD`:
 
   * gcc-cmake:8-3.13.1-20181209
 
-These images are built [from tags](https://github.com/KevinWMatthews/gcc-cmake/tags)
-in the source repo and are stable.
+These images are built [from tags](https://github.com/KevinWMatthews/gcc-cmake/tags) in the source repo and are stable.
 
 Here is a complete list of [Docker tags](https://hub.docker.com/r/kevinwmatthews/gcc-cmake/tags/).
 
 
 ### Build In Container
 
-For rapid development, bind mount your source code build directories to the
+For rapid development, bind mount your source and build directories to the
 container:
 
 ```bash
