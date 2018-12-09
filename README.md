@@ -7,15 +7,15 @@ CMake installed to the official gcc Docker image.
 
 Images are tagged with gcc version first and CMake version second, so `gcc8` with `CMake 3.13.1` is tagged with `8-3.13.1`:
 
-  * [gcc-cmake:8-3.13.1](https://github.com/KevinWMatthews/gcc-cmake/blob/master/gcc8/3.13.1/Dockerfile)
-  * [gcc-cmake:7-3.7.2](https://github.com/KevinWMatthews/gcc-cmake/blob/master/gcc7/3.7.2/Dockerfile)
-  * [gcc-cmake:5-3.5.1](https://github.com/KevinWMatthews/gcc-cmake/blob/master/gcc5/3.5.1/Dockerfile)
+  * [gcc-cmake:8-3.13.1](https://github.com/KevinWMatthews/gcc-cmake/blob/gcc8-cmake3.13.1/gcc8/cmake3.13.1/Dockerfile)
+  * [gcc-cmake:7-3.7.2](https://github.com/KevinWMatthews/gcc-cmake/blob/gcc7-cmake3.7.2/gcc7/cmake3.7.2/Dockerfile)
+  * [gcc-cmake:5-3.5.1](https://github.com/KevinWMatthews/gcc-cmake/blob/gcc5-cmake3.5.1/gcc5/cmake3.5.1/Dockerfile)
 
 These images are updated as changes to the Dockerfiles are made.
 
 Additionally, images are tagged with a date stamp `YYYYMMDD`:
 
-  * gcc-cmake:8-3.13.1-20181209
+  * [gcc-cmake:8-3.13.1-20181209](https://github.com/KevinWMatthews/gcc-cmake/blob/8-3.13.1-20181209/gcc8/cmake3.13.1/Dockerfile)
 
 These images are built [from tags](https://github.com/KevinWMatthews/gcc-cmake/tags) in the source repo and are stable.
 
