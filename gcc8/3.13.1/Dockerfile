@@ -20,3 +20,5 @@ COPY --from=build_cmake /usr/local/bin/ctest .
 # Copy limited set of shared resources
 WORKDIR /usr/local/share
 COPY --from=build_cmake /usr/local/share/cmake-3.13/ /usr/local/share/cmake-3.13/
+
+WORKDIR /usr/src
