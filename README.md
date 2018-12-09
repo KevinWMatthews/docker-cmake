@@ -1,89 +1,61 @@
-# Docker CMake
+# gcc and CMake in Docker
 
-This Git repo contains Dockerfiles for generating images with CMake and gcc.
-
-
-## Build Image
-
-Adjust to the desired version:
-```
-$ docker build -t cmake-3.5.1 3.5.1/
-```
+CMake installed to the official gcc Docker image.
 
 
-## Run Container
+## Tags and `Dockerfile` links
+
+Images are tagged with gcc version first and CMake version second, so `gcc8` with `CMake 3.13.1` gives `8-3.13.1`:
+
+  * [gcc-cmake:8-3.13.1](https://github.com/KevinWMatthews/gcc-cmake/blob/master/gcc8/3.13.1/Dockerfile)
+  * [gcc-cmake:7-3.7.2](https://github.com/KevinWMatthews/gcc-cmake/blob/master/gcc7/3.7.2/Dockerfile)
+  * [gcc-cmake:5-3.5.1](https://github.com/KevinWMatthews/gcc-cmake/blob/master/gcc5/3.5.1/Dockerfile)
+
+These images are updated as changes to the Dockerfiles are made.
+
+Additionally, images are tagged with a date stamp `YYYYMMDD`:
+
+  * gcc-cmake:8-3.13.1-20181209
+
+These images are built [from tags](https://github.com/KevinWMatthews/gcc-cmake/tags)
+in the source repo and are stable.
+
+A complete list of Docker tags is here.
 
 
 ### Build In Container
 
-To compile source code on the host machine using the container's tools,
-you must mount (bind) the source directory to the machine.
-Per gcc's example:
-```
+For rapid development, bind mount your source code build directories to the
+container:
+
+```bash
 $ docker run \
-    --rm --name cmake-3.5.1 \
-    -it \
-    --mount type=bind,src="$PWD",dest=/usr/src/<source_repo> \
-    -w /usr/src/<source_repo> \
-    cmake-3.5.1 \
-    bash
-```
-Of course, replace bash with the command of your choosing.
-This works but compiles all source code as root, which can be problematic when later accessing files on the host system.
-
-
-#### Permissions when Starting Container
-
-For security reasons, Docker containers typically are not run as root.
-
-This image has a default user built in:
-```
-ARG userid=1000
+    --rm -it \
+    --user $(id --user):$(id --group) \
+    --mount type=bind,src=/path/to/source/dir,dst=/usr/src/<source_dir> \
+    --mount type=bind,src=/path/to/build/dir,dst=/usr/src/<build_dir> \
+    --workdir /usr/src/<build_dir> \
+    <image> \
+    <command>
 ```
 
-This will run the container with userid 1000 and group 1000 by default.
+This will run the container, execute `<command>`, and exit the container.
 
-This can be overridden when the image is built and/or the container is run.
+Leave `<command>` blank to shell into the container.
 
-To set the image's default user, use:
-```
-$ docker build --build-arg userid=<your_userid> <docker_directory>
-```
 
-To override the user id at runtime only, use:
-```
-$ docker run --user <uid:gid>
-```
+### Permissions
 
-It can be convenient to use the option:
-```
+When mounting code to the container, it is advisable to run the container
+with current system user ID. If the container is run as root, all changes
+to the source and build directories will be owned by root.
+
+This can be solved using the `--user` option. On Ubuntu Linux, use:
+
+```bash
 --user $(id --user):$(id --group)
 ```
-
-
-
-### Example Run Command
-
-This will run the container as the current user:
-```
-$ docker run \
-    --rm --name cmake-3.5.1 \
-    -it \
-    --user $(id --user):$(id --group) \
-    --mount type=bind,src=/path/to/host/source,dst=/path/to/container/source \
-    -w /path/to/container/source \
-    cmake-3.5.1 \
-    bash
-```
-
-
-
-### Shell Into Container
-
-To explore the contents of a container, run
-```
-$ docker run --rm --name cmake-3.5.1 -it cmake-3.5.1 bash
-```
+or a similar option.
 
 
 ## Additional Resources
